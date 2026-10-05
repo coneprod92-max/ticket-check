@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TicketCheck — Administration</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <a class="brand" href="index.html"><span class="brand-mark">TC</span><span class="brand-text"><strong>Ticket<span>Check</span></strong><small>Administration</small></span></a>
+  <button class="free-btn" id="logoutBtn" style="display:none">Déconnexion</button>
+</header>
+
+<main class="form-page">
+<section class="form-card">
+
+<div id="loginBox">
+  <span class="eyebrow">ESPACE ADMIN</span>
+  <h1>Connexion</h1>
+  <form id="loginForm">
+    <div class="field"><label>Email</label><input id="email" type="email" value="coneprod92@gmail.com" required></div>
+    <div class="field"><label>Mot de passe</label><input id="password" type="password" required></div>
+    <button class="submit-btn" type="submit">Se connecter</button>
+    <p id="loginMessage" class="form-message"></p>
+  </form>
+</div>
+
+<div id="dashboard" style="display:none">
+  <span class="eyebrow">TABLEAU DE BORD</span>
+  <h1>Demandes reçues</h1>
+  <p class="admin-intro">Les administrateurs autorisés peuvent consulter et traiter toutes les demandes.</p>
+  <div id="requests" class="admin-list"></div>
+
+  <section id="adminManagement" class="admin-management" style="display:none">
+    <span class="eyebrow">ADMINISTRATION</span>
+    <h2>Gérer les administrateurs</h2>
+    <p>Ajoutez l'adresse e-mail d'un administrateur déjà créé dans Supabase Auth.</p>
+    <form id="addAdminForm" class="admin-add">
+      <input id="newAdminEmail" type="email" placeholder="email@exemple.com" required>
+      <button class="submit-btn" type="submit">Ajouter</button>
+    </form>
+    <p id="adminMessage" class="form-message"></p>
+    <div id="admins"></div>
+  </section>
+</div>
+
+</section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
