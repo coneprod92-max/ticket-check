@@ -1,1 +1,37 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>TicketCheck — Administration</title><link rel="stylesheet" href="style.css"></head><body><header class="header"><a class="logo" href="index.html"><span>TC</span> TicketCheck</a><button id="logoutBtn" class="small-button hidden">Déconnexion</button></header><main class="admin-page"><section id="loginCard" class="form-card narrow"><div class="hero-badge">ESPACE PRIVÉ</div><h1>Administration</h1><p class="muted">Connectez-vous pour consulter et traiter les demandes.</p><form id="loginForm"><label>Email<input id="email" type="email" value="coneprod92@gmail.com" required></label><label>Mot de passe<input id="password" type="password" placeholder="Votre mot de passe" required></label><button class="main-button submit-button" type="submit">Se connecter <span>→</span></button><div id="loginMessage" class="message"></div></form></section><section id="dashboard" class="hidden"><div class="dashboard-head"><div><div class="hero-badge">TABLEAU DE BORD</div><h1>Demandes de vérification</h1></div><button id="refreshBtn" class="small-button">Actualiser</button></div><div id="adminMessage" class="message"></div><div id="requestsList" class="requests-list"></div></section></main><footer><p>© 2026 TicketCheck — Administration</p></footer><script src="config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="admin.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TicketCheck — Administration</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <a class="logo" href="index.html">Ticket<span>Check</span></a>
+  <button class="nav-btn" id="logoutBtn">Déconnexion</button>
+</header>
+<main class="form-page">
+  <section class="form-card">
+    <div id="loginBox">
+      <span class="eyebrow">ESPACE ADMIN</span>
+      <h1>Connexion</h1>
+      <form id="loginForm">
+        <div class="field"><label>Email</label><input id="email" type="email" value="coneprod92@gmail.com" required></div>
+        <div class="field"><label>Mot de passe</label><input id="password" type="password" required></div>
+        <button class="submit-btn" type="submit">Se connecter</button>
+        <p id="loginMessage" class="form-message"></p>
+      </form>
+    </div>
+    <div id="dashboard" style="display:none">
+      <span class="eyebrow">TABLEAU DE BORD</span>
+      <h1>Demandes reçues</h1>
+      <div id="requests"></div>
+    </div>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

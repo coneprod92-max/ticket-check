@@ -1,1 +1,101 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>TicketCheck — Demande de vérification</title><link rel="stylesheet" href="style.css"></head><body><header class="header"><a class="logo" href="index.html"><span>TC</span> TicketCheck</a><a class="back-link" href="index.html">← Accueil</a></header><main class="form-page"><section class="form-card"><div class="hero-badge">DEMANDE DE VÉRIFICATION</div><h1>Envoyez votre demande</h1><p class="muted">Remplissez les informations ci-dessous. Pour votre sécurité, ne saisissez jamais le PIN ou code secret complet du ticket.</p><form id="ticketForm"><div class="form-grid"><label>Type de ticket<select id="provider" required><option value="">Sélectionner</option><option>PCS</option><option>Transcash</option><option>Neosurf</option><option>Paysafecard</option><option>Toneo First</option><option>Autre</option></select></label><label>Montant (FCFA)<input id="amount" type="number" min="1" step="1" placeholder="Ex. 25000" required></label><label>Date d'achat<input id="purchase_date" type="date"></label><label>Pays<input id="country" type="text" value="Bénin" placeholder="Ex. Bénin"></label><label>Nom / prénom<input id="customer_name" type="text" placeholder="Votre nom" required></label><label>Contact<input id="customer_contact" type="text" placeholder="WhatsApp ou téléphone" required></label><label>Référence du ticket<input id="ticket_reference" type="text" placeholder="Référence ou 4 derniers caractères"></label><label>Note<textarea id="notes" rows="3" placeholder="Informations complémentaires"></textarea></label></div><div class="notice">🔒 <b>Sécurité :</b> ne communiquez jamais le code PIN secret complet de votre ticket.</div><button class="main-button submit-button" type="submit">Envoyer la demande <span>→</span></button><div id="formMessage" class="message"></div></form></section></main><footer><p>© 2026 TicketCheck</p></footer><script src="config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="formulaire.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TicketCheck — Demande de vérification</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <a class="logo" href="index.html">Ticket<span>Check</span></a>
+  <a class="nav-btn" href="index.html">← Accueil</a>
+</header>
+
+<main class="form-page">
+  <section class="form-card">
+    <div class="form-title">
+      <span class="eyebrow">DEMANDE DE VÉRIFICATION</span>
+      <h1>Envoyez votre demande</h1>
+      <p>Remplissez les informations ci-dessous. Le service est entièrement gratuit.</p>
+    </div>
+
+    <div class="security-note">
+      <strong>🔒 Important</strong>
+      <span>Ne communiquez jamais le code PIN secret complet de votre ticket. Utilisez uniquement la référence/identifiant du ticket demandé ci-dessous.</span>
+    </div>
+
+    <form id="ticketForm">
+      <div class="field">
+        <label for="provider">Type de ticket</label>
+        <select id="provider" required>
+          <option value="">Sélectionnez un type</option>
+          <option>PCS</option>
+          <option>Transcash</option>
+          <option>Neosurf</option>
+          <option>Paysafecard</option>
+          <option>Toneo First</option>
+          <option>Autre</option>
+        </select>
+      </div>
+
+      <div class="two-cols">
+        <div class="field">
+          <label for="amount">Prix du ticket</label>
+          <input id="amount" type="number" min="0" step="0.01" placeholder="Ex. 50" required>
+        </div>
+        <div class="field">
+          <label for="currency">Devise</label>
+          <select id="currency" required>
+            <option value="EUR">Euro (€)</option>
+            <option value="USD">Dollar ($)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="purchase_date">Date d'achat</label>
+        <input id="purchase_date" type="date">
+      </div>
+
+      <div class="field">
+        <label for="country">Pays</label>
+        <input id="country" type="text" placeholder="Ex. Bénin" required>
+      </div>
+
+      <div class="field">
+        <label for="customer_name">Nom / Prénom</label>
+        <input id="customer_name" type="text" placeholder="Votre nom" required>
+      </div>
+
+      <div class="field">
+        <label for="customer_contact">Contact</label>
+        <input id="customer_contact" type="text" placeholder="WhatsApp, téléphone ou email" required>
+      </div>
+
+      <div class="field">
+        <label for="ticket_reference">Référence du ticket</label>
+        <input id="ticket_reference" type="text" placeholder="Référence ou identifiant visible sur le ticket" required>
+      </div>
+
+      <div class="field">
+        <label for="notes">Informations complémentaires <small>(facultatif)</small></label>
+        <textarea id="notes" rows="4" placeholder="Ajoutez une précision si nécessaire..."></textarea>
+      </div>
+
+      <button class="submit-btn" type="submit">Envoyer ma demande →</button>
+      <p id="formMessage" class="form-message"></p>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="logo">Ticket<span>Check</span></div>
+  <p>Vos informations sont utilisées uniquement pour traiter votre demande.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="formulaire.js"></script>
+</body>
+</html>

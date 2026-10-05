@@ -1,5 +1,72 @@
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
 const form = document.getElementById("ticketForm");
 const message = document.getElementById("formMessage");
-function makeReference(){const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let r="TC-";for(let i=0;i<8;i++)r+=chars[Math.floor(Math.random()*chars.length)];return r;}
-form.addEventListener("submit",async(e)=>{e.preventDefault();message.className="message";message.textContent="Envoi de votre demande...";const data={reference:makeReference(),provider:document.getElementById("provider").value,amount:Number(document.getElementById("amount").value),purchase_date:document.getElementById("purchase_date").value||null,country:document.getElementById("country").value.trim(),customer_name:document.getElementById("customer_name").value.trim(),customer_contact:document.getElementById("customer_contact").value.trim(),ticket_reference:document.getElementById("ticket_reference").value.trim()||null,notes:document.getElementById("notes").value.trim()||null,status:"pending",result_message:null};const{error}=await supabaseClient.from("ticket_requests").insert(data);if(error){console.error(error);message.className="message error";message.textContent="Impossible d'envoyer la demande pour le moment. Réessayez.";return;}message.className="message success";message.innerHTML="✓ Demande envoyée avec succès.<br>Votre référence : <strong>"+data.reference+"</strong><br>Conservez cette référence pour le suivi.";form.reset();document.getElementById("country").value="Bénin";});
+
+const params = new URLSearchParams(window.location.search);
+const requestedType = params.get("type");
+if (requestedType) {
+  const provider = document.getElementById("provider");
+  [...provider.options].forEach(option => {
+    if (option.value.toLowerCase() === requestedType.toLowerCase()) {
+      provider.value = option.value;
+    }
+  });
+}
+
+function makeReference() {
+  return "TC-" + Math.random().toString(36).substring(2, 8).toUpperCase() + Date.now().toString().slice(-4);
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  message.className = "form-message";
+  message.textContent = "Envoi de votre demande...";
+
+  const provider = document.getElementById("provider").value;
+  const amount = Number(document.getElementById("amount").value);
+  const currency = document.getElementById("currency").value;
+  const purchaseDate = document.getElementById("purchase_date").value || null;
+  const country = document.getElementById("country").value.trim();
+  const customerName = document.getElementById("customer_name").value.trim();
+  const customerContact = document.getElementById("customer_contact").value.trim();
+  const ticketReference = document.getElementById("ticket_reference").value.trim();
+  const extraNotes = document.getElementById("notes").value.trim();
+
+  const notes = `Devise: ${currency}${extraNotes ? "\n" + extraNotes : ""}`;
+
+  const payload = {
+    reference: makeReference(),
+    provider,
+    amount,
+    purchase_date: purchaseDate,
+    country,
+    customer_name: customerName,
+    customer_contact: customerContact,
+    ticket_reference: ticketReference,
+    notes,
+    status: "pending",
+    result_message: null
+  };
+
+  const { error } = await supabaseClient
+    .from("ticket_requests")
+    .insert(payload);
+
+  if (error) {
+    console.error(error);
+    message.className = "form-message error";
+    message.textContent = "Impossible d'envoyer la demande pour le moment. Réessayez.";
+    return;
+  }
+
+  message.className = "form-message success";
+  message.innerHTML = `✅ Demande envoyée avec succès !<br><strong>Référence : ${payload.reference}</strong><br>Conservez cette référence.`;
+
+  form.reset();
+  document.getElementById("currency").value = "EUR";
+});

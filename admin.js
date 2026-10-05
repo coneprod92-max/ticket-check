@@ -1,11 +1,73 @@
-const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);const loginCard=document.getElementById("loginCard"),dashboard=document.getElementById("dashboard"),loginForm=document.getElementById("loginForm"),loginMessage=document.getElementById("loginMessage"),adminMessage=document.getElementById("adminMessage"),requestsList=document.getElementById("requestsList"),logoutBtn=document.getElementById("logoutBtn"),refreshBtn=document.getElementById("refreshBtn");
-function setMessage(el,text,type=""){el.className="message "+type;el.textContent=text;}
-async function showDashboard(){loginCard.classList.add("hidden");dashboard.classList.remove("hidden");logoutBtn.classList.remove("hidden");await loadRequests();}
-async function checkSession(){const{data}=await supabaseClient.auth.getSession();if(data.session)showDashboard();}
-loginForm.addEventListener("submit",async(e)=>{e.preventDefault();setMessage(loginMessage,"Connexion...");const email=document.getElementById("email").value.trim(),password=document.getElementById("password").value;const{error}=await supabaseClient.auth.signInWithPassword({email,password});if(error){console.error(error);setMessage(loginMessage,"Email ou mot de passe incorrect.","error");return;}loginForm.reset();await showDashboard();});
-logoutBtn.addEventListener("click",async()=>{await supabaseClient.auth.signOut();dashboard.classList.add("hidden");loginCard.classList.remove("hidden");logoutBtn.classList.add("hidden");requestsList.innerHTML="";});refreshBtn.addEventListener("click",loadRequests);
-async function loadRequests(){setMessage(adminMessage,"Chargement des demandes...");const{data,error}=await supabaseClient.from("ticket_requests").select("*").order("created_at",{ascending:false});if(error){console.error(error);setMessage(adminMessage,"Impossible de charger les demandes.","error");return;}adminMessage.textContent="";if(!data||data.length===0){requestsList.innerHTML='<div class="empty">Aucune demande pour le moment.</div>';return;}requestsList.innerHTML=data.map(renderRequest).join("");document.querySelectorAll("[data-save]").forEach(b=>b.addEventListener("click",()=>updateRequest(b.dataset.save)));}
-function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
-function renderRequest(i){const date=i.created_at?new Date(i.created_at).toLocaleString("fr-FR"):"-";return `<article class="request-card"><div class="request-top"><div><h3>${esc(i.reference||"Sans référence")}</h3><div class="request-meta">${esc(i.provider)} · ${esc(i.amount)} FCFA<br>Reçue le ${esc(date)}</div></div><span class="status ${esc(i.status)}">${esc(i.status)}</span></div><div class="request-details"><div><strong>Client :</strong> ${esc(i.customer_name)}</div><div><strong>Contact :</strong> ${esc(i.customer_contact)}</div><div><strong>Pays :</strong> ${esc(i.country)}</div><div><strong>Date d'achat :</strong> ${esc(i.purchase_date||"-")}</div><div><strong>Référence ticket :</strong> ${esc(i.ticket_reference||"-")}</div><div><strong>Note :</strong> ${esc(i.notes||"-")}</div></div><div class="request-actions"><select id="status-${i.id}">${["pending","processing","verified","rejected"].map(s=>`<option value="${s}" ${i.status===s?"selected":""}>${s}</option>`).join("")}</select><textarea id="result-${i.id}" rows="3" placeholder="Message / résultat à transmettre">${esc(i.result_message||"")}</textarea><button class="small-button" data-save="${i.id}">Enregistrer le résultat</button></div></article>`;}
-async function updateRequest(id){const status=document.getElementById("status-"+id).value,result_message=document.getElementById("result-"+id).value.trim()||null;setMessage(adminMessage,"Enregistrement...");const{error}=await supabaseClient.from("ticket_requests").update({status,result_message}).eq("id",id);if(error){console.error(error);setMessage(adminMessage,"Erreur lors de l'enregistrement.","error");return;}setMessage(adminMessage,"✓ Résultat enregistré.","success");await loadRequests();}
-checkSession();
+const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const loginForm = document.getElementById("loginForm");
+const loginMessage = document.getElementById("loginMessage");
+const loginBox = document.getElementById("loginBox");
+const dashboard = document.getElementById("dashboard");
+const requestsBox = document.getElementById("requests");
+const logoutBtn = document.getElementById("logoutBtn");
+
+async function showSession() {
+  const { data } = await client.auth.getSession();
+  if (data.session) {
+    loginBox.style.display = "none";
+    dashboard.style.display = "block";
+    loadRequests();
+  } else {
+    loginBox.style.display = "block";
+    dashboard.style.display = "none";
+  }
+}
+
+loginForm?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  loginMessage.textContent = "Connexion...";
+  const { error } = await client.auth.signInWithPassword({
+    email: document.getElementById("email").value.trim(),
+    password: document.getElementById("password").value
+  });
+  if (error) {
+    loginMessage.className = "form-message error";
+    loginMessage.textContent = error.message;
+    return;
+  }
+  loginMessage.textContent = "";
+  showSession();
+});
+
+logoutBtn?.addEventListener("click", async () => {
+  await client.auth.signOut();
+  showSession();
+});
+
+async function loadRequests() {
+  requestsBox.innerHTML = "<p class='form-message'>Chargement...</p>";
+  const { data, error } = await client.from("ticket_requests").select("*").order("created_at", { ascending:false });
+  if (error) {
+    requestsBox.innerHTML = `<p class="form-message error">${error.message}</p>`;
+    return;
+  }
+  if (!data.length) {
+    requestsBox.innerHTML = "<p class='form-message'>Aucune demande pour le moment.</p>";
+    return;
+  }
+
+  requestsBox.innerHTML = data.map(item => `
+    <article style="background:#07111f;border:1px solid rgba(255,255,255,.08);padding:18px;border-radius:16px;margin:15px 0">
+      <strong style="color:#4cc9ff">${item.reference}</strong>
+      <p><b>${item.provider}</b> — ${item.amount ?? "-"} ${item.notes?.match(/Devise:\s*(EUR|USD)/)?.[1] || ""}</p>
+      <p>Client : ${escapeHtml(item.customer_name)}<br>Contact : ${escapeHtml(item.customer_contact)}</p>
+      <p>Pays : ${escapeHtml(item.country)}<br>Référence ticket : ${escapeHtml(item.ticket_reference)}</p>
+      <p>Statut : <b>${escapeHtml(item.status)}</b></p>
+      <p style="color:#8498aa;font-size:13px">${escapeHtml(item.notes || "")}</p>
+    </article>
+  `).join("");
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[char]));
+}
+
+client.auth.onAuthStateChange(() => showSession());
+showSession();

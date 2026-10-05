@@ -1,1 +1,75 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>TicketCheck — Vérification de tickets</title><link rel="stylesheet" href="style.css"></head><body><header class="header"><a class="logo" href="index.html"><span>TC</span> TicketCheck</a><div class="header-badge">SERVICE GRATUIT</div></header><main><section class="hero"><div class="hero-badge">✓ SERVICE DE VÉRIFICATION</div><h1>Vérifiez votre<br><span>ticket facilement.</span></h1><p>Soumettez les informations de votre ticket et recevez le résultat de sa vérification après traitement.</p><a href="formulaire.html" class="main-button">Vérifier mon ticket <span>→</span></a><div class="trust"><div>✓ Gratuit</div><div>✓ Simple</div><div>✓ Traitement sécurisé</div></div></section><section class="section"><div class="section-title"><span>01</span><h2>Types de tickets</h2></div><div class="ticket-grid"><div class="ticket-card"><div class="ticket-icon">P</div><h3>PCS</h3><p>Ticket prépayé PCS</p></div><div class="ticket-card"><div class="ticket-icon">T</div><h3>Transcash</h3><p>Ticket prépayé Transcash</p></div><div class="ticket-card"><div class="ticket-icon">N</div><h3>Neosurf</h3><p>Ticket prépayé Neosurf</p></div><div class="ticket-card"><div class="ticket-icon">P$</div><h3>Paysafecard</h3><p>Ticket prépayé</p></div><div class="ticket-card"><div class="ticket-icon">T1</div><h3>Toneo First</h3><p>Ticket prépayé</p></div><div class="ticket-card"><div class="ticket-icon">+</div><h3>Autre</h3><p>Autre type de ticket</p></div></div></section><section class="section"><div class="section-title"><span>02</span><h2>Comment ça marche ?</h2></div><div class="steps"><div class="step"><strong>01</strong><div><h3>Remplissez le formulaire</h3><p>Indiquez les informations demandées concernant votre ticket.</p></div></div><div class="step"><strong>02</strong><div><h3>Envoyez votre demande</h3><p>Votre demande est enregistrée et traitée par notre service.</p></div></div><div class="step"><strong>03</strong><div><h3>Recevez le résultat</h3><p>Le résultat de la vérification vous est communiqué après traitement.</p></div></div></div></section></main><footer><p>© 2026 TicketCheck — Service gratuit de vérification</p></footer></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TicketCheck — Vérification de tickets</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <a class="logo" href="index.html">Ticket<span>Check</span></a>
+  <a class="nav-btn" href="formulaire.html">Vérifier un ticket</a>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="badge">SERVICE GRATUIT • SIMPLE • RAPIDE</div>
+      <h1>Vérifiez votre <span>ticket</span> facilement.</h1>
+      <p>Choisissez le type de ticket, envoyez les informations demandées et recevez le résultat de votre vérification.</p>
+      <a class="primary-btn" href="formulaire.html">Commencer la vérification →</a>
+      <p class="mini-note">Disponible pour plusieurs types de tickets • Prix en EUR ou USD</p>
+    </div>
+
+    <div class="ticket-stack" aria-label="Types de tickets">
+      <div class="ticket ticket-pcs">
+        <div><b>PCS</b><small>RECHARGE</small></div><strong>€</strong>
+      </div>
+      <div class="ticket ticket-transcash">
+        <div><b>Transcash</b><small>RECHARGE</small></div><strong>$</strong>
+      </div>
+      <div class="ticket ticket-neosurf">
+        <div><b>NEOSURF</b><small>VOUCHER</small></div><strong>€</strong>
+      </div>
+      <div class="ticket ticket-paysafe">
+        <div><b>paysafecard</b><small>PREPAID</small></div><strong>$</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">NOS TICKETS</span>
+        <h2>Choisissez votre type de ticket</h2>
+      </div>
+      <p>Des représentations visuelles pour vous aider à choisir.</p>
+    </div>
+
+    <div class="ticket-grid">
+      <a class="type-card" href="formulaire.html?type=PCS"><div class="mini-ticket pcs"><b>PCS</b><span>€</span></div><h3>PCS</h3><p>Ticket prépayé</p></a>
+      <a class="type-card" href="formulaire.html?type=Transcash"><div class="mini-ticket transcash"><b>Transcash</b><span>$</span></div><h3>Transcash</h3><p>Ticket prépayé</p></a>
+      <a class="type-card" href="formulaire.html?type=Neosurf"><div class="mini-ticket neosurf"><b>NEOSURF</b><span>€</span></div><h3>Neosurf</h3><p>Voucher</p></a>
+      <a class="type-card" href="formulaire.html?type=Paysafecard"><div class="mini-ticket paysafe"><b>paysafecard</b><span>$</span></div><h3>Paysafecard</h3><p>Voucher</p></a>
+      <a class="type-card" href="formulaire.html?type=Toneo First"><div class="mini-ticket toneo"><b>TONEO</b><span>€</span></div><h3>Toneo First</h3><p>Ticket prépayé</p></a>
+      <a class="type-card" href="formulaire.html?type=Autre"><div class="mini-ticket other"><b>AUTRE</b><span>+</span></div><h3>Autre</h3><p>Type non listé</p></a>
+    </div>
+  </section>
+
+  <section class="steps section">
+    <div class="section-head"><div><span class="eyebrow">COMMENT ÇA MARCHE ?</span><h2>3 étapes simples</h2></div></div>
+    <div class="step-grid">
+      <div class="step"><span>01</span><h3>Choisissez</h3><p>Sélectionnez le type de votre ticket.</p></div>
+      <div class="step"><span>02</span><h3>Envoyez</h3><p>Remplissez le formulaire avec les informations demandées.</p></div>
+      <div class="step"><span>03</span><h3>Recevez</h3><p>Votre demande est traitée et le résultat vous est communiqué.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="logo">Ticket<span>Check</span></div>
+  <p>Service gratuit de demande de vérification.</p>
+</footer>
+</body>
+</html>
