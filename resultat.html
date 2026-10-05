@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TicketCheck — Suivre ma demande</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <a class="brand" href="index.html"><span class="brand-mark">TC</span><span class="brand-text"><strong>Ticket<span>Check</span></strong><small>Vérification de tickets en ligne</small></span></a>
+  <a class="free-btn" href="index.html">← ACCUEIL</a>
+</header>
+
+<main class="form-page">
+<section class="form-card">
+  <span class="eyebrow">SUIVI DE VÉRIFICATION</span>
+  <h1>Consultez votre résultat</h1>
+  <p class="admin-intro">Entrez votre référence TicketCheck et le même contact utilisé lors de votre demande.</p>
+
+  <form id="resultForm">
+    <div class="field">
+      <label for="reference">Référence TicketCheck</label>
+      <input id="reference" placeholder="Ex. TC-ABC12345" required>
+    </div>
+    <div class="field">
+      <label for="contact">Contact utilisé pour la demande</label>
+      <input id="contact" placeholder="Téléphone, WhatsApp ou email" required>
+    </div>
+    <button class="submit-btn" type="submit">Consulter le résultat →</button>
+    <p id="resultMessage" class="form-message"></p>
+  </form>
+
+  <div id="resultBox" class="result-box" style="display:none"></div>
+</section>
+</main>
+
+<footer>
+  <a class="brand" href="index.html"><span class="brand-mark">TC</span><span class="brand-text"><strong>Ticket<span>Check</span></strong><small>Vérification de tickets en ligne</small></span></a>
+  <p>Votre résultat ne révèle aucune donnée personnelle.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="resultat.js"></script>
+</body>
+</html>
