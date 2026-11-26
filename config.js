@@ -1,6 +1,17 @@
-// Clé publique Supabase destinée au navigateur.
-// Ne jamais mettre une clé service_role/secret ici.
+﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
-const SUPABASE_URL = "https://fhxbmlgxiqveayddsibl.supabase.co";
+const firebaseConfig = {
+  apiKey: "AIzaSyBqMVyzohUg4JBzpMh0fQ1a1oh0aJS70kI",
+  authDomain: "ticketcheck-d6e81.firebaseapp.com",
+  projectId: "ticketcheck-d6e81",
+  storageBucket: "ticketcheck-d6e81.firebasestorage.app",
+  messagingSenderId: "474446936297",
+  appId: "1:474446936297:web:43a41b08373a510781d878"
+};
 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoeGJtbGd4aXF2ZWF5ZGRzaWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEwNDAxODIsImV4cCI6MjEwNjYxNjE4Mn0.ol5HrmanT9AzYcen6rbU77VjNJaRSGu2Z0HmPLWioo8";
+const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+export const db = getFirestore(app);

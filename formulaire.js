@@ -1,1 +1,94 @@
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);const form=document.getElementById("ticketForm"),message=document.getElementById("formMessage");const params=new URLSearchParams(window.location.search),requestedType=params.get("type");if(requestedType){const provider=document.getElementById("provider");[...provider.options].forEach(o=>{if(o.value.toLowerCase()===requestedType.toLowerCase())provider.value=o.value})}function makeReference(){return "TC-"+Math.random().toString(36).substring(2,8).toUpperCase()+Date.now().toString().slice(-4)}form.addEventListener("submit",async e=>{e.preventDefault();message.className="form-message";message.textContent="Envoi de votre demande...";const currency="EUR",extra=document.getElementById("notes").value.trim();const payload={reference:makeReference(),provider:document.getElementById("provider").value,amount:Number(document.getElementById("amount").value),purchase_date:document.getElementById("purchase_date").value||null,country:document.getElementById("country").value.trim(),customer_name:document.getElementById("customer_name").value.trim(),customer_contact:document.getElementById("customer_contact").value.trim(),ticket_reference:document.getElementById("ticket_reference").value.trim(),notes:`Devise: ${currency}${extra?"\n"+extra:""}`,status:"pending",result_message:null};const {error}=await supabaseClient.from("ticket_requests").insert(payload);if(error){console.error(error);message.className="form-message error";message.textContent="Impossible d'envoyer la demande pour le moment. Réessayez.";return}message.className="form-message success";message.innerHTML=`✅ Demande envoyée avec succès !<br><strong>Référence : ${payload.reference}</strong><br>Conservez cette référence.`;form.reset();document.getElementById("country").value="France"});
+﻿import { db } from "./config.js";
+import {
+  collection,
+  doc,
+  writeBatch,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+const form = document.getElementById("ticketForm");
+const message = document.getElementById("formMessage");
+
+const params = new URLSearchParams(window.location.search);
+const requestedType = params.get("type");
+
+if (requestedType) {
+  const provider = document.getElementById("provider");
+  [...provider.options].forEach(option => {
+    if (option.value.toLowerCase() === requestedType.toLowerCase()) {
+      provider.value = option.value;
+    }
+  });
+}
+
+function makeReference() {
+  return "TC-" + Math.random().toString(36).substring(2, 8).toUpperCase()
+    + Date.now().toString().slice(-4);
+}
+
+function makeLookupToken() {
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  return [...bytes].map(byte => byte.toString(16).padStart(2, "0")).join("");
+}
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  message.className = "form-message";
+  message.textContent = "Envoi de votre demande...";
+
+  const reference = makeReference();
+  const lookupToken = makeLookupToken();
+  const extra = document.getElementById("notes").value.trim();
+
+  const payload = {
+    reference,
+    provider: document.getElementById("provider").value,
+    amount: Number(document.getElementById("amount").value),
+    purchase_date: document.getElementById("purchase_date").value || null,
+    country: document.getElementById("country").value.trim(),
+    customer_name: document.getElementById("customer_name").value.trim(),
+    customer_contact: document.getElementById("customer_contact").value.trim(),
+    ticket_reference: document.getElementById("ticket_reference").value.trim(),
+    notes: `Devise: EUR${extra ? "\n" + extra : ""}`,
+    status: "pending",
+    result_message: null,
+    lookup_token: lookupToken,
+    created_at: serverTimestamp()
+  };
+
+  try {
+    const batch = writeBatch(db);
+
+    const privateRequest = doc(collection(db, "ticket_requests"));
+    const publicResult = doc(db, "public_results", lookupToken);
+
+    batch.set(privateRequest, payload);
+
+    batch.set(publicResult, {
+      lookup_token: lookupToken,
+      reference,
+      provider: payload.provider,
+      status: "pending",
+      result_message: null
+    });
+
+    await batch.commit();
+
+    form.reset();
+    document.getElementById("country").value = "France";
+
+    message.className = "form-message success";
+    message.innerHTML = `
+      <strong>✅ Demande envoyée avec succès !</strong>
+      <p>Votre référence : <strong>${reference}</strong></p>
+      <p>Votre code secret : <strong>${lookupToken}</strong></p>
+      <p>Conservez précieusement ces deux informations pour consulter votre résultat.</p>
+    `;
+  } catch (error) {
+    console.error("Erreur Firebase :", error);
+    message.className = "form-message error";
+    message.textContent = "Impossible d'envoyer la demande pour le moment. Réessayez.";
+  }
+});
