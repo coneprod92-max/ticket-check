@@ -5,8 +5,310 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#061326">
+<meta name="description" content="Consultez en ligne et gratuitement le résultat de votre demande de vérification TicketCheck.">
 <title>TicketCheck — Suivre ma demande</title>
 <link rel="stylesheet" href="style.css">
+
+<style>
+/* PAGE DE SUIVI */
+.form-page {
+  min-height: calc(100vh - 100px);
+  padding: 65px 20px 85px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(30,111,220,.16), transparent 55%),
+    #041020;
+}
+
+.result-card {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 45px;
+  background: linear-gradient(145deg, #0d2038, #09182b);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 22px;
+  box-shadow: 0 25px 70px rgba(0,0,0,.28);
+}
+
+.result-heading {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.result-heading .eyebrow {
+  display: inline-block;
+  padding: 9px 15px;
+  border-radius: 30px;
+  background: rgba(42,132,255,.12);
+  border: 1px solid rgba(42,132,255,.25);
+  color: #68aaff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.result-heading h1 {
+  margin: 20px 0 12px;
+  color: #fff;
+  font-size: clamp(28px, 5vw, 40px);
+  line-height: 1.2;
+}
+
+.result-heading p {
+  max-width: 530px;
+  margin: auto;
+  color: #9db0c8;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.result-security {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  margin-bottom: 30px;
+  background: rgba(42,132,255,.07);
+  border: 1px solid rgba(42,132,255,.2);
+  border-radius: 13px;
+}
+
+.result-security-icon {
+  flex-shrink: 0;
+  font-size: 21px;
+}
+
+.result-security strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #8bbdff;
+  font-size: 14px;
+}
+
+.result-security span {
+  color: #a9bbd2;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+#resultForm {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+#resultForm .field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+#resultForm .field label {
+  color: #e7effb;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#resultForm input {
+  width: 100%;
+  min-height: 53px;
+  padding: 14px 16px;
+  color: #f5f8ff;
+  background: #071426;
+  border: 1px solid rgba(160,190,225,.19);
+  border-radius: 10px;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+#resultForm input::placeholder {
+  color: #71839b;
+}
+
+#resultForm input:focus {
+  border-color: #348cff;
+  box-shadow: 0 0 0 3px rgba(52,140,255,.12);
+}
+
+#resultForm .submit-btn {
+  width: 100%;
+  min-height: 55px;
+  margin-top: 5px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(100deg, #1675f9, #3299ff);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(22,117,249,.2);
+  transition: transform .2s, box-shadow .2s;
+}
+
+#resultForm .submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(22,117,249,.3);
+}
+
+#resultForm .submit-btn:disabled {
+  opacity: .65;
+  cursor: wait;
+  transform: none;
+}
+
+#resultMessage {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#resultMessage.error {
+  color: #ff8585;
+}
+
+/* RÉSULTAT */
+#resultBox {
+  margin-top: 30px;
+  padding: 25px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 15px;
+  color: #e8f0fb;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+#resultBox .result-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  margin-bottom: 17px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+#resultBox .status-pending {
+  color: #ffd27b;
+  background: rgba(255,190,65,.12);
+  border: 1px solid rgba(255,190,65,.25);
+}
+
+#resultBox .status-processing {
+  color: #8cc4ff;
+  background: rgba(52,140,255,.12);
+  border: 1px solid rgba(52,140,255,.25);
+}
+
+#resultBox .status-verified {
+  color: #7be2a7;
+  background: rgba(45,200,115,.12);
+  border: 1px solid rgba(45,200,115,.25);
+}
+
+#resultBox .status-rejected {
+  color: #ff9292;
+  background: rgba(255,75,75,.12);
+  border: 1px solid rgba(255,75,75,.25);
+}
+
+#resultBox h3 {
+  margin: 0 0 15px;
+  color: #fff;
+  font-size: 22px;
+}
+
+#resultBox p {
+  margin: 10px 0;
+  color: #b6c7dc;
+  font-size: 14px;
+}
+
+#resultBox p b {
+  color: #e8f0fb;
+}
+
+#resultBox .result-message {
+  margin-top: 20px;
+  padding: 17px;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 10px;
+  color: #d9e6f6;
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.result-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 720px;
+  margin: 25px auto 0;
+}
+
+.result-benefit {
+  padding: 16px 10px;
+  text-align: center;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+}
+
+.result-benefit strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #dceaff;
+  font-size: 13px;
+}
+
+.result-benefit span {
+  color: #8195ae;
+  font-size: 11px;
+}
+
+.result-footer {
+  padding: 30px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,.07);
+  background: #030d1a;
+}
+
+.result-footer .brand {
+  justify-content: center;
+}
+
+.result-footer p {
+  margin: 14px 0 0;
+  color: #8195ae;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .form-page {
+    padding: 35px 14px 55px;
+  }
+
+  .result-card {
+    padding: 27px 19px;
+    border-radius: 17px;
+  }
+
+  .result-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  #resultBox {
+    padding: 19px;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -25,72 +327,89 @@
 
 <main class="form-page">
 
-<section class="form-card">
+  <section class="result-card">
 
-  <span class="eyebrow" data-i18n="resultEyebrow">
-    SUIVI DE VÉRIFICATION
-  </span>
+    <div class="result-heading">
+      <span class="eyebrow" data-i18n="resultEyebrow">
+        SUIVI DE VÉRIFICATION
+      </span>
 
-  <h1 data-i18n="resultTitle">Consultez votre résultat</h1>
+      <h1 data-i18n="resultTitle">Consultez votre résultat</h1>
 
-  <p class="admin-intro" data-i18n="resultDescription">
-    Entrez votre référence TicketCheck et le code secret reçu après l'envoi de votre demande.
-  </p>
+      <p data-i18n="resultDescription">
+        Entrez votre référence TicketCheck et le code secret reçu après l'envoi de votre demande.
+      </p>
+    </div>
 
-  <div class="security-note">
-    <strong data-i18n="secretCode">🔒 Votre code secret</strong>
+  
 
-    <span data-i18n="secretWarning">
-      Ce code est personnel. Conservez-le précieusement et ne le partagez pas.
-    </span>
+    <form id="resultForm">
+
+      <div class="field">
+        <label for="reference" data-i18n="ticketReferenceLabel">
+          Référence TicketCheck
+        </label>
+
+        <input
+          id="reference"
+          type="text"
+          placeholder="Ex. TC-ABC12345"
+          data-i18n-placeholder="referenceExample"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="lookupCode" data-i18n="lookupCode">
+          Code secret de consultation
+        </label>
+
+        <input
+          id="lookupCode"
+          type="text"
+          placeholder="Votre code secret de 32 caractères"
+          data-i18n-placeholder="lookupPlaceholder"
+          minlength="32"
+          maxlength="32"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          required
+        >
+      </div>
+
+      <button class="submit-btn" type="submit" data-i18n="checkResult">
+        Consulter le résultat →
+      </button>
+
+      <p id="resultMessage" class="form-message"></p>
+
+    </form>
+
+    <div id="resultBox" class="result-box" style="display:none"></div>
+
+  </section>
+
+  <div class="result-benefits">
+    <div class="result-benefit">
+      <strong>🔒 Accès sécurisé</strong>
+      <span>Consultation avec vos identifiants</span>
+    </div>
+
+    <div class="result-benefit">
+      <strong>⚡ Suivi en ligne</strong>
+      <span>Consultez l'état de votre demande</span>
+    </div>
+
+    <div class="result-benefit">
+      <strong>✓ Service gratuit</strong>
+      <span>Aucun frais de consultation</span>
+    </div>
   </div>
 
-  <form id="resultForm">
-
-    <div class="field">
-      <label for="reference" data-i18n="ticketReferenceLabel">
-        Référence TicketCheck
-      </label>
-
-      <input
-        id="reference"
-        type="text"
-        placeholder="Ex. TC-ABC12345"
-        data-i18n-placeholder="referenceExample"
-        required
-      >
-    </div>
-
-    <div class="field">
-      <label for="lookupCode" data-i18n="lookupCode">
-        Code secret de consultation
-      </label>
-
-      <input
-        id="lookupCode"
-        type="text"
-        placeholder="Votre code secret de 32 caractères"
-        data-i18n-placeholder="lookupPlaceholder"
-        minlength="32"
-        maxlength="32"
-        required
-      >
-    </div>
-
-    <button class="submit-btn" type="submit" data-i18n="checkResult">
-      Consulter le résultat →
-    </button>
-
-    <p id="resultMessage" class="form-message"></p>
-
-  </form>
-
-  <div id="resultBox" class="result-box" style="display:none"></div>
-
-</section>
 </main>
 
-<footer>
+<footer class="result-footer">
 
   <a class="brand" href="index.html">
     <span class="brand-mark">TC</span>
