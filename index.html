@@ -4,70 +4,345 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#061326">
+<meta name="theme-color" content="#041020">
+<meta name="description" content="TicketCheck : soumettez votre demande de vérification de ticket prépayé simplement et gratuitement.">
 <title>TicketCheck — Vérification de tickets en ligne</title>
 <link rel="stylesheet" href="style.css">
 
 <style>
-.reviews-section {
-    padding: 80px 6%;
-    background: #081a30;
+/* Améliorations visuelles de la page d'accueil */
+body {
+    overflow-x: hidden;
 }
+
+.navbar {
+    box-shadow: 0 8px 30px rgba(0,0,0,.18);
+    backdrop-filter: blur(14px);
+}
+
+.brand-mark {
+    position: relative;
+    box-shadow: 0 0 25px rgba(0,140,255,.3);
+}
+
+.hero {
+    position: relative;
+    background:
+        radial-gradient(ellipse at 78% 40%, rgba(0,133,255,.20), transparent 38%),
+        radial-gradient(ellipse at 10% 90%, rgba(0,70,150,.12), transparent 35%),
+        linear-gradient(180deg,#06182d,#041020);
+}
+
+.hero-copy {
+    position: relative;
+    z-index: 3;
+}
+
+.service-pill {
+    box-shadow: 0 5px 20px rgba(0,125,255,.18);
+}
+
+.hero h1 {
+    max-width: 650px;
+    line-height: 1.04;
+}
+
+.hero h1 span {
+    text-shadow: 0 0 25px rgba(17,157,255,.18);
+}
+
+.hero-copy > p {
+    line-height: 1.85;
+}
+
+.primary-btn {
+    transition: transform .25s, box-shadow .25s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 35px rgba(0,125,255,.35);
+}
+
+.trust-row span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.hero-visual {
+    isolation: isolate;
+}
+
+.glow-orbit {
+    box-shadow:
+        0 0 35px rgba(0,112,255,.14),
+        inset 0 0 35px rgba(0,112,255,.08);
+}
+
+.hero-card {
+    transition: transform .3s, box-shadow .3s;
+}
+
+.hero-card:hover {
+    box-shadow: 0 25px 55px rgba(0,0,0,.55);
+}
+
+.section {
+    position: relative;
+}
+
+.section-title {
+    margin-bottom: 34px;
+}
+
+.section-title h2 {
+    margin-top: 8px;
+}
+
+.ticket-grid {
+    gap: 18px;
+}
+
+.type-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    padding: 17px;
+    background: linear-gradient(145deg,#0a2038,#061426);
+    box-shadow: 0 12px 30px rgba(0,0,0,.14);
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+
+.type-card:hover {
+    transform: translateY(-7px);
+    border-color: #159eff;
+    box-shadow: 0 18px 35px rgba(0,100,200,.16);
+}
+
+.product-card {
+    border-radius: 11px;
+    height: 110px;
+}
+
+.type-card h3 {
+    font-size: 17px;
+    margin-top: 17px;
+}
+
+.type-card p {
+    min-height: 18px;
+}
+
+.type-card > strong {
+    margin-top: 14px;
+    padding: 9px 7px;
+}
+
+.steps {
+    gap: 16px;
+}
+
+.step {
+    padding: 18px;
+    border: 1px solid rgba(30,129,220,.2);
+    border-radius: 15px;
+    background: linear-gradient(145deg,#091d33,#061426);
+    min-height: 135px;
+}
+
+.step-icon {
+    box-shadow: 0 0 24px rgba(0,120,255,.10);
+}
+
+.step h3 {
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.step p {
+    line-height: 1.7;
+}
+
+.reviews-section {
+    padding: 75px 5%;
+    background:
+        radial-gradient(ellipse at 50% 0%,rgba(0,100,200,.12),transparent 55%),
+        #061528;
+    border-bottom: 1px solid rgba(41,157,255,.12);
+}
+
 .reviews-heading {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 38px;
 }
+
 .reviews-heading .section-number {
     justify-content: center;
 }
+
 .reviews-heading h2 {
     color: #fff;
-    font-size: 2rem;
-    margin: 15px 0;
+    font-size: clamp(27px,3vw,36px);
+    margin: 12px 0;
 }
+
 .reviews-heading p {
-    color: #a9b8ca;
+    color: #91a8c1;
 }
+
 .reviews-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 18px;
+    max-width: 1250px;
     margin: auto;
 }
+
 .review-card {
-    background: #102640;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 16px;
     padding: 25px;
-    color: #fff;
+    border: 1px solid rgba(30,129,220,.22);
+    border-radius: 15px;
+    background: linear-gradient(145deg,#102640,#091a2e);
+    transition: transform .25s,border-color .25s;
 }
+
+.review-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(21,158,255,.65);
+}
+
 .review-stars {
     color: #ffc247;
     font-size: 20px;
     letter-spacing: 3px;
-    margin-bottom: 16px;
+    margin-bottom: 17px;
 }
+
 .review-card h3 {
+    color: #fff;
     font-size: 17px;
     margin: 0 0 12px;
 }
+
 .review-card p {
     color: #b8c6d7;
     font-size: 14px;
-    line-height: 1.7;
-    margin-bottom: 20px;
+    line-height: 1.8;
+    margin: 0;
 }
-.review-author {
-    color: #7fa8d5;
-    font-size: 12px;
-    font-weight: 600;
+
+footer {
+    border-top: 1px solid rgba(41,157,255,.15);
 }
-.review-disclaimer {
-    text-align: center;
-    color: #8195ac;
-    font-size: 11px;
-    margin-top: 25px;
+
+footer .brand {
+    min-width: 0;
+}
+
+/* Tablettes */
+@media(max-width:1100px) {
+    .hero {
+        grid-template-columns: 45% 55%;
+    }
+
+    .hero-visual {
+        transform: scale(.88);
+        transform-origin: center right;
+    }
+
+    .ticket-grid {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+
+/* Mobiles */
+@media(max-width:800px) {
+    .navbar {
+        gap: 10px;
+    }
+
+    .hero {
+        display: flex;
+        flex-direction: column;
+        padding: 42px 5% 20px;
+        align-items: stretch;
+    }
+
+    .hero-copy {
+        padding: 0;
+    }
+
+    .hero-visual {
+        width: 100%;
+        height: 350px;
+        transform: none;
+        margin-top: 15px;
+    }
+
+    .step {
+        min-height: auto;
+    }
+
+    .reviews-section {
+        padding: 55px 5%;
+    }
+
+    .reviews-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+}
+
+@media(max-width:520px) {
+    .navbar {
+        height: 70px;
+    }
+
+    .hero {
+        padding-top: 34px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+        line-height: 1.04;
+        margin: 18px 0;
+    }
+
+    .hero-copy > p {
+        font-size: 14px;
+    }
+
+    .hero-visual {
+        height: 290px;
+        transform: scale(.68);
+        transform-origin: top left;
+        width: 147%;
+        margin-bottom: -75px;
+    }
+
+    .ticket-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-card {
+        height: 115px;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reviews-heading h2 {
+        font-size: 27px;
+    }
+
+    .review-card {
+        padding: 22px;
+    }
+
+    .section-title h2 {
+        font-size: 28px;
+    }
 }
 </style>
 </head>
@@ -75,193 +350,313 @@
 <body>
 
 <header class="navbar">
+
 <a class="brand" href="index.html">
-<span class="brand-mark">TC</span>
-<span class="brand-text">
-<strong>Ticket<span>Check</span></strong>
-<small data-i18n="footer">Vérification de tickets en ligne</small>
-</span>
+    <span class="brand-mark">TC</span>
+    <span class="brand-text">
+        <strong>Ticket<span>Check</span></strong>
+        <small data-i18n="footer">Vérification de tickets en ligne</small>
+    </span>
 </a>
 
 <nav class="desktop-nav">
-<a class="active" href="#accueil">⌂ <span data-i18n="home">Accueil</span></a>
-<a href="#tickets">♢ <span data-i18n="tickets">Types de tickets</span></a>
-<a href="#comment">? <span data-i18n="how">Comment ça marche ?</span></a>
-<a href="#avis">★ <span data-i18n="reviews">Avis</span></a>
-<a href="#contact">✉ <span data-i18n="contact">Contact</span></a>
+    <a class="active" href="#accueil">⌂ <span data-i18n="home">Accueil</span></a>
+    <a href="#tickets">♢ <span data-i18n="tickets">Types de tickets</span></a>
+    <a href="#comment">? <span data-i18n="how">Comment ça marche ?</span></a>
+    <a href="#avis">★ <span data-i18n="reviews">Avis</span></a>
+    <a href="#contact">✉ <span data-i18n="contact">Contact</span></a>
 </nav>
 
-<a class="free-btn" href="formulaire.html">◈ &nbsp; <span data-i18n="free">SERVICE GRATUIT</span></a>
+<a class="free-btn" href="formulaire.html">
+    ◈ &nbsp; <span data-i18n="free">SERVICE GRATUIT</span>
+</a>
+
 </header>
 
 <main>
 
+<!-- ACCUEIL -->
 <section class="hero" id="accueil">
-<div class="hero-copy">
-<div class="service-pill" data-i18n="service">✓ &nbsp; SERVICE DE VÉRIFICATION</div>
 
-<h1><span data-i18n="heroTitle">Vérifiez votre</span><br>ticket <span data-i18n="heroHighlight">facilement.</span></h1>
+    <div class="hero-copy">
 
-<p data-i18n="heroDescription">Soumettez les informations de votre ticket et recevez le résultat de sa vérification en quelques instants. Rapide, simple et 100% gratuit.</p>
+        <div class="service-pill" data-i18n="service">
+            ✓ &nbsp; SERVICE DE VÉRIFICATION
+        </div>
 
-<a class="primary-btn" href="formulaire.html">
-<span data-i18n="verifyTicket">Vérifier mon ticket</span> <b>→</b>
-</a>
+        <h1>
+            <span data-i18n="heroTitle">Vérifiez votre</span><br>
+            ticket <span data-i18n="heroHighlight">facilement.</span>
+        </h1>
 
-<div class="trust-row">
-<span>✓ <b data-i18n="freeWord">Gratuit</b></span>
-<span>✓ <b data-i18n="simple">Simple</b></span>
-<span>✓ <b data-i18n="secure">Sécurisé</b></span>
-</div>
-</div>
+        <p data-i18n="heroDescription">
+            Soumettez les informations de votre ticket et recevez le résultat de sa vérification en quelques instants. Rapide, simple et 100% gratuit.
+        </p>
 
-<div class="hero-visual">
-<div class="glow-orbit"></div>
-<div class="hero-card card-pcs"><img src="https://kaartdirect.be/cdn-cgi/imagedelivery/Pk8Ky-xDyeK8TLUvfplArQ/pcs-mastercard-prepaid-eur50-1630410832.png-1743944565.6426/square" alt="Logo PCS"></div>
-<div class="hero-card card-trans"><b>transcash</b><small>PREPAID</small><i>↗</i></div>
-<div class="hero-card card-neo"><img src="https://cdn.brandfetch.io/id_6XBZaqs/w/1920/h/946/theme/light/logo.png?c=1bxid64Mup7aczewSAYMX&t=1760456805554" alt="Logo Neosurf"></div>
-<div class="hero-card card-safe"><img src="https://bdmbet.co/media/paysafecard-hi-res-68e91bc4b9d0b734199425_3097x1032.png" alt="Logo paysafecard"></div>
-<div class="hero-card card-toneo"><img src="https://static.rapido.com/cms/sites/21/2024/07/23130201/Toneo.png" alt="Logo ToneoFirst"></div>
-<div class="hero-card card-other"><b>＋</b><small data-i18n="other">Autres tickets</small></div>
-<div class="hero-note" data-i18n="allTickets">Tous vos tickets au même endroit !</div>
-</div>
+        <a class="primary-btn" href="formulaire.html">
+            <span data-i18n="verifyTicket">Vérifier mon ticket</span>
+            <b>→</b>
+        </a>
+
+        <div class="trust-row">
+            <span>✓ <b data-i18n="freeWord">Gratuit</b></span>
+            <span>✓ <b data-i18n="simple">Simple</b></span>
+            <span>✓ <b data-i18n="secure">Sécurisé</b></span>
+        </div>
+
+    </div>
+
+    <div class="hero-visual">
+
+        <div class="glow-orbit"></div>
+
+        <div class="hero-card card-pcs">
+            <img src="https://kaartdirect.be/cdn-cgi/imagedelivery/Pk8Ky-xDyeK8TLUvfplArQ/pcs-mastercard-prepaid-eur50-1630410832.png-1743944565.6426/square" alt="Logo PCS">
+        </div>
+
+        <div class="hero-card card-trans">
+            <b>transcash</b>
+            <small>PREPAID</small>
+            <i>↗</i>
+        </div>
+
+        <div class="hero-card card-neo">
+            <img src="https://cdn.brandfetch.io/id_6XBZaqs/w/1920/h/946/theme/light/logo.png?c=1bxid64Mup7aczewSAYMX&t=1760456805554" alt="Logo Neosurf">
+        </div>
+
+        <div class="hero-card card-safe">
+            <img src="https://bdmbet.co/media/paysafecard-hi-res-68e91bc4b9d0b734199425_3097x1032.png" alt="Logo paysafecard">
+        </div>
+
+        <div class="hero-card card-toneo">
+            <img src="https://static.rapido.com/cms/sites/21/2024/07/23130201/Toneo.png" alt="Logo Toneo First">
+        </div>
+
+        <div class="hero-card card-other">
+            <b>＋</b>
+            <small data-i18n="other">Autres tickets</small>
+        </div>
+
+        <div class="hero-note" data-i18n="allTickets">
+            Tous vos tickets au même endroit !
+        </div>
+
+    </div>
+
 </section>
 
+<!-- TYPES DE TICKETS -->
 <section class="section" id="tickets">
-<div class="section-title">
-<div>
-<div class="section-number"><span>01</span><i></i></div>
-<h2 data-i18n="ticketTitle">Types de tickets</h2>
-<p data-i18n="ticketDescription">Nous prenons en charge les principaux tickets prépayés du marché.</p>
-</div>
-</div>
 
-<div class="ticket-grid">
-<a class="type-card" href="formulaire.html?type=PCS">
-<div class="product-card pcs"><img src="https://kaartdirect.be/cdn-cgi/imagedelivery/Pk8Ky-xDyeK8TLUvfplArQ/pcs-mastercard-prepaid-eur50-1630410832.png-1743944565.6426/square" alt="Logo PCS"></div>
-<h3>PCS</h3><p data-i18n="prepaid">Ticket prépayé PCS</p><strong>€10 – €200</strong>
-</a>
+    <div class="section-title">
+        <div>
+            <div class="section-number"><span>01</span><i></i></div>
+            <h2 data-i18n="ticketTitle">Types de tickets</h2>
+            <p data-i18n="ticketDescription">
+                Nous prenons en charge les principaux tickets prépayés du marché.
+            </p>
+        </div>
+    </div>
 
-<a class="type-card" href="formulaire.html?type=Transcash">
-<div class="product-card transcash"><b>transcash</b><small>PREPAID</small></div>
-<h3>Transcash</h3><p data-i18n="prepaid">Ticket prépayé Transcash</p><strong>€10 – €250</strong>
-</a>
+    <div class="ticket-grid">
 
-<a class="type-card" href="formulaire.html?type=Neosurf">
-<div class="product-card neosurf"><img src="https://cdn.brandfetch.io/id_6XBZaqs/w/1920/h/946/theme/light/logo.png?c=1bxid64Mup7aczewSAYMX&t=1760456805554" alt="Logo Neosurf"></div>
-<h3>Neosurf</h3><p data-i18n="prepaid">Ticket prépayé Neosurf</p><strong>€10 – €250</strong>
-</a>
+        <a class="type-card" href="formulaire.html?type=PCS">
+            <div class="product-card pcs">
+                <img src="https://kaartdirect.be/cdn-cgi/imagedelivery/Pk8Ky-xDyeK8TLUvfplArQ/pcs-mastercard-prepaid-eur50-1630410832.png-1743944565.6426/square" alt="Logo PCS">
+            </div>
+            <h3>PCS</h3>
+            <p data-i18n="prepaid">Ticket prépayé PCS</p>
+            <strong>€10 – €200</strong>
+        </a>
 
-<a class="type-card" href="formulaire.html?type=Paysafecard">
-<div class="product-card paysafecard"><img src="https://bdmbet.co/media/paysafecard-hi-res-68e91bc4b9d0b734199425_3097x1032.png" alt="Logo paysafecard"></div>
-<h3>Paysafecard</h3><p data-i18n="prepaid">Ticket prépayé Paysafecard</p><strong>€10 – €100</strong>
-</a>
+        <a class="type-card" href="formulaire.html?type=Transcash">
+            <div class="product-card transcash">
+                <b>transcash</b>
+                <small>PREPAID</small>
+            </div>
+            <h3>Transcash</h3>
+            <p data-i18n="prepaid">Ticket prépayé Transcash</p>
+            <strong>€10 – €250</strong>
+        </a>
 
-<a class="type-card" href="formulaire.html?type=Toneo%20First">
-<div class="product-card toneo"><img src="https://static.rapido.com/cms/sites/21/2024/07/23130201/Toneo.png" alt="Logo ToneoFirst"></div>
-<h3>Toneo First</h3><p data-i18n="prepaid">Ticket prépayé Toneo First</p><strong>€10 – €200</strong>
-</a>
+        <a class="type-card" href="formulaire.html?type=Neosurf">
+            <div class="product-card neosurf">
+                <img src="https://cdn.brandfetch.io/id_6XBZaqs/w/1920/h/946/theme/light/logo.png?c=1bxid64Mup7aczewSAYMX&t=1760456805554" alt="Logo Neosurf">
+            </div>
+            <h3>Neosurf</h3>
+            <p data-i18n="prepaid">Ticket prépayé Neosurf</p>
+            <strong>€10 – €250</strong>
+        </a>
 
-<a class="type-card" href="formulaire.html?type=Autre">
-<div class="product-card other"><b>＋</b><small data-i18n="other">Autres tickets</small></div>
-<h3 data-i18n="other">Autre</h3><p data-i18n="other">Autre type de ticket</p><strong>€10 – €250</strong>
-</a>
-</div>
+        <a class="type-card" href="formulaire.html?type=Paysafecard">
+            <div class="product-card paysafecard">
+                <img src="https://bdmbet.co/media/paysafecard-hi-res-68e91bc4b9d0b734199425_3097x1032.png" alt="Logo paysafecard">
+            </div>
+            <h3>Paysafecard</h3>
+            <p data-i18n="prepaid">Ticket prépayé Paysafecard</p>
+            <strong>€10 – €100</strong>
+        </a>
+
+        <a class="type-card" href="formulaire.html?type=Toneo%20First">
+            <div class="product-card toneo">
+                <img src="https://static.rapido.com/cms/sites/21/2024/07/23130201/Toneo.png" alt="Logo Toneo First">
+            </div>
+            <h3>Toneo First</h3>
+            <p data-i18n="prepaid">Ticket prépayé Toneo First</p>
+            <strong>€10 – €200</strong>
+        </a>
+
+        <a class="type-card" href="formulaire.html?type=Autre">
+            <div class="product-card other">
+                <b>＋</b>
+                <small data-i18n="other">Autres tickets</small>
+            </div>
+            <h3 data-i18n="other">Autre</h3>
+            <p data-i18n="other">Autre type de ticket</p>
+            <strong>€10 – €250</strong>
+        </a>
+
+    </div>
 </section>
 
+<!-- COMMENT ÇA MARCHE -->
 <section class="section" id="comment">
-<div class="section-title">
-<div>
-<div class="section-number"><span>02</span><i></i></div>
-<h2 data-i18n="howTitle">Comment ça marche ?</h2>
-<p data-i18n="howDescription">En 3 étapes simples, obtenez le résultat de la vérification de votre ticket.</p>
-</div>
-</div>
 
-<div class="steps">
-<div class="step">
-<div class="step-icon blue">▤</div>
-<div><small>01</small><h3 data-i18n="step1">Remplissez le formulaire</h3><p data-i18n="step1Desc">Indiquez les informations demandées concernant votre ticket.</p></div>
-</div>
+    <div class="section-title">
+        <div>
+            <div class="section-number"><span>02</span><i></i></div>
+            <h2 data-i18n="howTitle">Comment ça marche ?</h2>
+            <p data-i18n="howDescription">
+                En 3 étapes simples, obtenez le résultat de la vérification de votre ticket.
+            </p>
+        </div>
+    </div>
 
-<div class="step-arrow">→</div>
+    <div class="steps">
 
-<div class="step">
-<div class="step-icon purple">➤</div>
-<div><small>02</small><h3 data-i18n="step2">Envoyez votre demande</h3><p data-i18n="step2Desc">Votre demande est enregistrée et traitée par notre service.</p></div>
-</div>
+        <div class="step">
+            <div class="step-icon blue">▤</div>
+            <div>
+                <small>01</small>
+                <h3 data-i18n="step1">Remplissez le formulaire</h3>
+                <p data-i18n="step1Desc">
+                    Indiquez les informations demandées concernant votre ticket.
+                </p>
+            </div>
+        </div>
 
-<div class="step-arrow">→</div>
+        <div class="step-arrow">→</div>
 
-<div class="step">
-<div class="step-icon green">✓</div>
-<div><small>03</small><h3 data-i18n="step3">Recevez le résultat</h3><p data-i18n="step3Desc">Le résultat de la vérification vous est communiqué après traitement.</p></div>
-</div>
-</div>
+        <div class="step">
+            <div class="step-icon purple">➤</div>
+            <div>
+                <small>02</small>
+                <h3 data-i18n="step2">Envoyez votre demande</h3>
+                <p data-i18n="step2Desc">
+                    Votre demande est enregistrée et traitée par notre service.
+                </p>
+            </div>
+        </div>
+
+        <div class="step-arrow">→</div>
+
+        <div class="step">
+            <div class="step-icon green">✓</div>
+            <div>
+                <small>03</small>
+                <h3 data-i18n="step3">Recevez le résultat</h3>
+                <p data-i18n="step3Desc">
+                    Le résultat de la vérification vous est communiqué après traitement.
+                </p>
+            </div>
+        </div>
+
+    </div>
 </section>
 
+<!-- AVIS -->
 <section class="reviews-section" id="avis">
-<div class="reviews-heading">
-<div class="section-number"><span>03</span><i></i></div>
-<h2 data-i18n="reviewsTitle">Ils parlent de TicketCheck</h2>
-<p data-i18n="reviewsDescription">La simplicité et la rapidité au cœur de notre service.</p>
-</div>
 
-<div class="reviews-grid">
+    <div class="reviews-heading">
+        <div class="section-number"><span>03</span><i></i></div>
+        <h2 data-i18n="reviewsTitle">Ils parlent de TicketCheck</h2>
+        <p data-i18n="reviewsDescription">
+            La simplicité et la rapidité au cœur de notre service.
+        </p>
+    </div>
 
-<article class="review-card">
-<div class="review-stars">★★★★★</div>
-<h3 data-i18n="excellent">Excellent service !</h3>
-<p data-i18n="excellentDesc">Une plateforme simple, rapide et très pratique pour soumettre une demande de vérification de ticket.</p>
-</article>
+    <div class="reviews-grid">
 
-<article class="review-card">
-<div class="review-stars">★★★★★</div>
-<h3 data-i18n="experience">Très bonne expérience !</h3>
-<p data-i18n="experienceDesc">L'utilisation est facile et les différentes étapes sont bien expliquées. Une interface agréable.</p>
-</article>
+        <article class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <h3 data-i18n="excellent">Excellent service !</h3>
+            <p data-i18n="excellentDesc">
+                Une plateforme simple, rapide et très pratique pour soumettre une demande de vérification de ticket.
+            </p>
+        </article>
 
-<article class="review-card">
-<div class="review-stars">★★★★★</div>
-<h3 data-i18n="practical">Un outil très pratique !</h3>
-<p data-i18n="practicalDesc">TicketCheck permet de transmettre une demande facilement et de consulter son résultat en ligne.</p>
-</article>
+        <article class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <h3 data-i18n="experience">Très bonne expérience !</h3>
+            <p data-i18n="experienceDesc">
+                L'utilisation est facile et les différentes étapes sont bien expliquées. Une interface agréable.
+            </p>
+        </article>
 
-<article class="review-card">
-<div class="review-stars">★★★★★</div>
-<h3 data-i18n="excellentWork">Excellent travail !</h3>
-<p data-i18n="excellentWorkDesc">Une présentation claire, un parcours simple et un service accessible gratuitement. Bravo !</p>
-</article>
+        <article class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <h3 data-i18n="practical">Un outil très pratique !</h3>
+            <p data-i18n="practicalDesc">
+                TicketCheck permet de transmettre une demande facilement et de consulter son résultat en ligne.
+            </p>
+        </article>
 
-<article class="review-card">
-<div class="review-stars">★★★★★</div>
-<h3 data-i18n="recommend">Je recommande !</h3>
-<p data-i18n="recommendDesc">Un service pratique qui facilite le suivi des demandes. On apprécie la simplicité d'utilisation.</p>
-</article>
+        <article class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <h3 data-i18n="excellentWork">Excellent travail !</h3>
+            <p data-i18n="excellentWorkDesc">
+                Une présentation claire, un parcours simple et un service accessible gratuitement. Bravo !
+            </p>
+        </article>
 
-</div>
+        <article class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <h3 data-i18n="recommend">Je recommande !</h3>
+            <p data-i18n="recommendDesc">
+                Un service pratique qui facilite le suivi des demandes. On apprécie la simplicité d'utilisation.
+            </p>
+        </article>
+
+    </div>
 </section>
 
 </main>
 
+<!-- PIED DE PAGE -->
 <footer id="contact">
-<a class="brand" href="index.html">
-<span class="brand-mark">TC</span>
-<span class="brand-text">
-<strong>Ticket<span>Check</span></strong>
-<small data-i18n="footer">Vérification de tickets en ligne</small>
-</span>
-</a>
 
-<p>© 2026 TicketCheck — <span data-i18n="footer">Service gratuit de vérification</span></p>
+    <a class="brand" href="index.html">
+        <span class="brand-mark">TC</span>
+        <span class="brand-text">
+            <strong>Ticket<span>Check</span></strong>
+            <small data-i18n="footer">Vérification de tickets en ligne</small>
+        </span>
+    </a>
 
-<div class="footer-trust">
-<span>♢ <span data-i18n="freeWord">100% Gratuit</span></span>
-<span>▣ <span data-i18n="secure">Sécurisé</span></span>
-<span>ϟ <span data-i18n="simple">Rapide</span></span>
-</div>
+    <p>
+        © 2026 TicketCheck —
+        <span data-i18n="footer">Service gratuit de vérification</span>
+    </p>
+
+    <div class="footer-trust">
+        <span>♢ <span data-i18n="freeWord">100% Gratuit</span></span>
+        <span>▣ <span data-i18n="secure">Sécurisé</span></span>
+        <span>ϟ <span data-i18n="simple">Rapide</span></span>
+    </div>
+
 </footer>
 
 <script src="lang.js"></script>
+
 </body>
 </html>
