@@ -1,11 +1,14 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#061326">
 <title>TicketCheck — Suivre ma demande</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header class="navbar">
@@ -13,39 +16,71 @@
     <span class="brand-mark">TC</span>
     <span class="brand-text">
       <strong>Ticket<span>Check</span></strong>
-      <small>Vérification de tickets en ligne</small>
+      <small data-i18n="footer">Vérification de tickets en ligne</small>
     </span>
   </a>
-  <a class="free-btn" href="index.html">← ACCUEIL</a>
+
+  <a class="free-btn" href="index.html" data-i18n="home">← ACCUEIL</a>
 </header>
 
 <main class="form-page">
+
 <section class="form-card">
 
-  <span class="eyebrow">SUIVI DE VÉRIFICATION</span>
-  <h1>Consultez votre résultat</h1>
-  <p class="admin-intro">
+  <span class="eyebrow" data-i18n="resultEyebrow">
+    SUIVI DE VÉRIFICATION
+  </span>
+
+  <h1 data-i18n="resultTitle">Consultez votre résultat</h1>
+
+  <p class="admin-intro" data-i18n="resultDescription">
     Entrez votre référence TicketCheck et le code secret reçu après l'envoi de votre demande.
   </p>
 
   <div class="security-note">
-    <strong>🔒 Votre code secret</strong>
-    <span>Ce code est personnel. Conservez-le précieusement et ne le partagez pas.</span>
+    <strong data-i18n="secretCode">🔒 Votre code secret</strong>
+
+    <span data-i18n="secretWarning">
+      Ce code est personnel. Conservez-le précieusement et ne le partagez pas.
+    </span>
   </div>
 
   <form id="resultForm">
 
     <div class="field">
-      <label for="reference">Référence TicketCheck</label>
-      <input id="reference" type="text" placeholder="Ex. TC-ABC12345" required>
+      <label for="reference" data-i18n="ticketReferenceLabel">
+        Référence TicketCheck
+      </label>
+
+      <input
+        id="reference"
+        type="text"
+        placeholder="Ex. TC-ABC12345"
+        data-i18n-placeholder="referenceExample"
+        required
+      >
     </div>
 
     <div class="field">
-      <label for="lookupCode">Code secret de consultation</label>
-      <input id="lookupCode" type="text" placeholder="Votre code secret de 32 caractères" minlength="32" maxlength="32" required>
+      <label for="lookupCode" data-i18n="lookupCode">
+        Code secret de consultation
+      </label>
+
+      <input
+        id="lookupCode"
+        type="text"
+        placeholder="Votre code secret de 32 caractères"
+        data-i18n-placeholder="lookupPlaceholder"
+        minlength="32"
+        maxlength="32"
+        required
+      >
     </div>
 
-    <button class="submit-btn" type="submit">Consulter le résultat →</button>
+    <button class="submit-btn" type="submit" data-i18n="checkResult">
+      Consulter le résultat →
+    </button>
+
     <p id="resultMessage" class="form-message"></p>
 
   </form>
@@ -56,16 +91,24 @@
 </main>
 
 <footer>
+
   <a class="brand" href="index.html">
     <span class="brand-mark">TC</span>
+
     <span class="brand-text">
       <strong>Ticket<span>Check</span></strong>
-      <small>Vérification de tickets en ligne</small>
+      <small data-i18n="footer">Vérification de tickets en ligne</small>
     </span>
   </a>
-  <p>Votre résultat ne révèle aucune donnée personnelle.</p>
+
+  <p data-i18n="footerResultPrivacy">
+    Votre résultat ne révèle aucune donnée personnelle.
+  </p>
+
 </footer>
 
+<script src="lang.js"></script>
 <script type="module" src="resultat.js"></script>
+
 </body>
 </html>

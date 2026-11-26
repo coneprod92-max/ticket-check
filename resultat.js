@@ -1,4 +1,5 @@
-﻿import { db } from "./config.js";
+﻿
+import { db } from "./config.js";
 import {
   doc,
   getDoc
@@ -8,11 +9,14 @@ const form = document.getElementById("resultForm");
 const msg = document.getElementById("resultMessage");
 const box = document.getElementById("resultBox");
 
+const translate = key =>
+  window.TicketCheckI18n?.t(key) || key;
+
 form.addEventListener("submit", async event => {
   event.preventDefault();
 
   msg.className = "form-message";
-  msg.textContent = "Recherche en cours...";
+  msg.textContent = translate("searching");
   box.style.display = "none";
 
   const reference = document.getElementById("reference").value.trim();
@@ -20,7 +24,7 @@ form.addEventListener("submit", async event => {
 
   if (!/^[a-f0-9]{32}$/.test(lookupCode)) {
     msg.className = "form-message error";
-    msg.textContent = "Le code secret doit contenir exactement 32 caractères valides.";
+    msg.textContent = translate("invalidCode");
     return;
   }
 
@@ -29,47 +33,75 @@ form.addEventListener("submit", async event => {
     const resultSnap = await getDoc(resultRef);
 
     if (!resultSnap.exists()) {
-      msg.className = "form-message error";
-      msg.textContent = "Aucune demande trouvée avec ces informations.";
+      showNotFound();
       return;
     }
 
     const r = resultSnap.data();
 
     if (r.lookup_token !== lookupCode || r.reference !== reference) {
-      msg.className = "form-message error";
-      msg.textContent = "Aucune demande trouvée avec ces informations.";
+      showNotFound();
       return;
     }
 
     msg.textContent = "";
     box.style.display = "block";
 
+    const status = String(r.status || "");
+    const statusClasses = {
+      pending: "status-pending",
+      processing: "status-processing",
+      verified: "status-verified",
+      rejected: "status-rejected"
+    };
+
+    const statusClass = statusClasses[status] || "";
+    const statusLabel = labelStatus(status);
+
+    const resultMessage = r.result_message ||
+      translate("resultPending");
+
     box.innerHTML = `
-      <div class="result-status status-${escapeHtml(r.status)}">
-        ${labelStatus(r.status)}
+      <div class="result-status ${statusClass}">
+        ${escapeHtml(statusLabel)}
       </div>
+
       <h3>${escapeHtml(r.provider)}</h3>
-      <p><b>Référence :</b> ${escapeHtml(r.reference)}</p>
+
+      <p>
+        <b>${translate("referenceLabel")} :</b>
+        ${escapeHtml(r.reference)}
+      </p>
+
       <div class="result-message">
-        ${escapeHtml(r.result_message || "Votre demande est encore en cours de traitement.")}
+        ${escapeHtml(resultMessage)}
       </div>
     `;
 
   } catch (error) {
     console.error("Erreur Firebase :", error);
+
     msg.className = "form-message error";
-    msg.textContent = "Impossible de consulter le résultat pour le moment. Réessayez.";
+    msg.textContent = translate("resultError");
   }
 });
 
+function showNotFound() {
+  msg.className = "form-message error";
+  msg.textContent = translate("notFound");
+}
+
 function labelStatus(status) {
-  return {
-    pending: "En attente",
-    processing: "En traitement",
-    verified: "Vérifié",
-    rejected: "Rejeté"
-  }[status] || status;
+  const statusKeys = {
+    pending: "statusPending",
+    processing: "statusProcessing",
+    verified: "statusVerified",
+    rejected: "statusRejected"
+  };
+
+  return statusKeys[status]
+    ? translate(statusKeys[status])
+    : status;
 }
 
 function escapeHtml(value) {

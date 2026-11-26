@@ -1,4 +1,5 @@
-﻿import { db } from "./config.js";
+﻿
+import { db } from "./config.js";
 import {
   collection,
   doc,
@@ -9,11 +10,15 @@ import {
 const form = document.getElementById("ticketForm");
 const message = document.getElementById("formMessage");
 
+const translate = key =>
+  window.TicketCheckI18n?.t(key) || key;
+
 const params = new URLSearchParams(window.location.search);
 const requestedType = params.get("type");
 
 if (requestedType) {
   const provider = document.getElementById("provider");
+
   [...provider.options].forEach(option => {
     if (option.value.toLowerCase() === requestedType.toLowerCase()) {
       provider.value = option.value;
@@ -22,21 +27,25 @@ if (requestedType) {
 }
 
 function makeReference() {
-  return "TC-" + Math.random().toString(36).substring(2, 8).toUpperCase()
-    + Date.now().toString().slice(-4);
+  return "TC-" +
+    Math.random().toString(36).substring(2, 8).toUpperCase() +
+    Date.now().toString().slice(-4);
 }
 
 function makeLookupToken() {
   const bytes = new Uint8Array(16);
   crypto.getRandomValues(bytes);
-  return [...bytes].map(byte => byte.toString(16).padStart(2, "0")).join("");
+
+  return [...bytes]
+    .map(byte => byte.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 form.addEventListener("submit", async event => {
   event.preventDefault();
 
   message.className = "form-message";
-  message.textContent = "Envoi de votre demande...";
+  message.textContent = translate("sending");
 
   const reference = makeReference();
   const lookupToken = makeLookupToken();
@@ -80,15 +89,18 @@ form.addEventListener("submit", async event => {
     document.getElementById("country").value = "France";
 
     message.className = "form-message success";
+
     message.innerHTML = `
-      <strong>✅ Demande envoyée avec succès !</strong>
-      <p>Votre référence : <strong>${reference}</strong></p>
-      <p>Votre code secret : <strong>${lookupToken}</strong></p>
-      <p>Conservez précieusement ces deux informations pour consulter votre résultat.</p>
+      <strong>✅ ${translate("requestSuccess")}</strong>
+      <p>${translate("yourReference")} : <strong>${reference}</strong></p>
+      <p>${translate("yourSecretCode")} : <strong>${lookupToken}</strong></p>
+      <p>${translate("saveCodes")}</p>
     `;
+
   } catch (error) {
     console.error("Erreur Firebase :", error);
+
     message.className = "form-message error";
-    message.textContent = "Impossible d'envoyer la demande pour le moment. Réessayez.";
+    message.textContent = translate("sendError");
   }
 });
