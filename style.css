@@ -4,3 +4,78 @@
 
 /* Interface admin : masquer la gestion des administrateurs */
 #adminManagement { display: none !important; }
+/* Sélecteur de langues TicketCheck */
+.tc-language-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 1000;
+}
+
+#ticketcheck-language-button {
+  min-height: 42px;
+  border: 1px solid #078cff;
+  border-radius: 10px;
+  background: #071a30;
+  color: #fff;
+  padding: 9px 13px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tc-language-flag {
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+}
+
+#ticketcheck-language-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 180px;
+  padding: 6px;
+  border: 1px solid #14558b;
+  border-radius: 12px;
+  background: #07182b;
+  box-shadow: 0 12px 30px rgba(0,0,0,.45);
+}
+
+#ticketcheck-language-menu[hidden] {
+  display: none;
+}
+
+.tc-language-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tc-language-option:hover,
+.tc-language-option.active {
+  background: #0b4c82;
+}
+
+@media(max-width:800px) {
+  #ticketcheck-language-button {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}
+
+@media(max-width:520px) {
+  #ticketcheck-language-button {
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+}
