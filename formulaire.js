@@ -47,6 +47,17 @@ form.addEventListener("submit", async event => {
   message.className = "form-message";
   message.textContent = translate("sending");
 
+  const customerContact = document
+    .getElementById("customer_contact")
+    .value.trim();
+
+  if (!customerContact) {
+    message.className = "form-message error";
+    message.textContent = "Veuillez renseigner votre numéro de contact.";
+    document.getElementById("customer_contact").focus();
+    return;
+  }
+
   const reference = makeReference();
   const lookupToken = makeLookupToken();
   const extra = document.getElementById("notes").value.trim();
@@ -58,7 +69,7 @@ form.addEventListener("submit", async event => {
     purchase_date: document.getElementById("purchase_date").value || null,
     country: document.getElementById("country").value.trim(),
     customer_name: document.getElementById("customer_name").value.trim(),
-    customer_contact: document.getElementById("customer_contact").value.trim(),
+    customer_contact: customerContact,
     ticket_reference: document.getElementById("ticket_reference").value.trim(),
     notes: `Devise: EUR${extra ? "\n" + extra : ""}`,
     status: "pending",
@@ -78,6 +89,7 @@ form.addEventListener("submit", async event => {
     batch.set(publicResult, {
       lookup_token: lookupToken,
       reference,
+      customer_contact: customerContact,
       provider: payload.provider,
       status: "pending",
       result_message: null
